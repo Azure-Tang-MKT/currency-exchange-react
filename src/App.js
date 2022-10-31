@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ExchangeCurrency from "./ExchangeCurrency";
+import { Calendar } from "antd";
+import moment from "moment";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = { date: "" };
+
+  handleDateChange = (date) => {
+    this.setState({ date: moment(date).format("YYYY-MM-DD") });
+  };
+
+  render() {
+    return (
+      <div>
+        <Calendar
+          fullscreen={false}
+          onChange={(date) => this.handleDateChange(date)}
+          //   onPanelChange={(date, mode) => {
+          //     console.log(date);
+          //     console.log(mode);
+          //   }
+          // }
+        />
+        <ExchangeCurrency date={this.state.date} />
+      </div>
+    );
+  }
 }
-
 export default App;
